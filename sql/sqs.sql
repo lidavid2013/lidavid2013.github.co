@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.4
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
--- Host: db
--- Generation Time: Mar 02, 2021 at 07:59 AM
--- Server version: 5.7.33
--- PHP Version: 7.4.15
+-- Host: 127.0.0.1:3306
+-- Generation Time: Apr 29, 2021 at 11:43 AM
+-- Server version: 5.7.31
+-- PHP Version: 7.3.21
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,186 +18,172 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `sqs`
+-- Database: `project0315`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `class`
+-- Table structure for table `admin`
 --
 
-CREATE TABLE `class` (
-  `id` int(11) NOT NULL,
-  `name` varchar(92) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+DROP TABLE IF EXISTS `admin`;
+CREATE TABLE IF NOT EXISTS `admin` (
+  `AdminID` int(4) NOT NULL AUTO_INCREMENT,
+  `Username` varchar(50) NOT NULL,
+  `Password` varchar(50) NOT NULL,
+  `Email` varchar(50) NOT NULL,
+  `Phone` int(11) NOT NULL,
+  PRIMARY KEY (`AdminID`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `class`
+-- Dumping data for table `admin`
 --
 
-INSERT INTO `class` (`id`, `name`) VALUES
-(1, 'webdev stage 1'),
-(2, 'web dev stage 2'),
-(3, 'webtech ');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `logtable`
---
-
-CREATE TABLE `logtable` (
-  `id` int(11) NOT NULL,
-  `datestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `url` varchar(256) NOT NULL,
-  `uid` int(12) NOT NULL,
-  `response_code` int(11) NOT NULL,
-  `ip_addr` varchar(39) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+INSERT INTO `admin` (`AdminID`, `Username`, `Password`, `Email`, `Phone`) VALUES
+(1, 'admin1', 'admin1', 'admin1@gmail.com', 123456),
+(2, 'admin2', 'admin2', 'admin2@gmail.com', 123456),
+(3, 'admin3', 'admin3', 'admin3@gmail.com', 123456),
+(4, 'admin4', 'admin4', 'admin4@gmail.com', 123456),
+(5, 'admin5', 'admin5', 'admin5@gmail.com', 123456);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `queue`
+-- Table structure for table `booking`
 --
 
-CREATE TABLE `queue` (
-  `queue_ID` int(11) NOT NULL,
-  `student_NO` bigint(20) NOT NULL,
-  `queue_DESC` varchar(2048) NOT NULL,
-  `queue_DATE` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `student`
---
-
-CREATE TABLE `student` (
-  `student_NO` bigint(20) NOT NULL,
-  `class_id` int(11) NOT NULL,
-  `nick` varchar(64) DEFAULT NULL,
-  `pass` varchar(256) DEFAULT NULL,
-  `color` varchar(6) DEFAULT NULL,
-  `icon` varchar(18) DEFAULT NULL,
-  `theme` varchar(9) DEFAULT NULL,
-  `privilege` int(4) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+DROP TABLE IF EXISTS `booking`;
+CREATE TABLE IF NOT EXISTS `booking` (
+  `BookingID` int(4) NOT NULL AUTO_INCREMENT,
+  `CustomerID` int(4) NOT NULL,
+  `RoomID` int(4) NOT NULL,
+  `DateStart` date NOT NULL,
+  `DateFinish` date NOT NULL,
+  `OrderStatus` varchar(10) NOT NULL,
+  `TotalAmount` float NOT NULL,
+  PRIMARY KEY (`BookingID`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `student`
+-- Dumping data for table `booking`
 --
 
-INSERT INTO `student` (`student_NO`, `class_id`, `nick`, `pass`, `color`, `icon`, `theme`, `privilege`) VALUES
-(460931363, 2, NULL, NULL, NULL, NULL, NULL, 0),
-(461417065, 2, NULL, NULL, NULL, NULL, NULL, 0),
-(465063493, 2, NULL, NULL, NULL, NULL, NULL, 0),
-(467551883, 2, NULL, NULL, NULL, NULL, NULL, 0),
-(468299219, 2, 'fragspawn', 'asdfasdf', NULL, NULL, NULL, 2),
-(470842368, 2, NULL, NULL, NULL, NULL, NULL, 0),
-(470892907, 2, NULL, NULL, NULL, NULL, NULL, 0),
-(470957194, 2, NULL, NULL, NULL, NULL, NULL, 0),
-(470963201, 2, NULL, NULL, NULL, NULL, NULL, 0),
-(471011185, 2, NULL, NULL, NULL, NULL, NULL, 0),
-(471012861, 2, NULL, NULL, NULL, NULL, NULL, 0),
-(471243153, 2, NULL, NULL, NULL, NULL, NULL, 0),
-(471457815, 2, NULL, NULL, NULL, NULL, NULL, 0),
-(471523347, 2, NULL, NULL, NULL, NULL, NULL, 0),
-(471528041, 2, NULL, NULL, NULL, NULL, NULL, 0),
-(471533155, 2, NULL, NULL, NULL, NULL, NULL, 0),
-(471614351, 2, NULL, NULL, NULL, NULL, NULL, 0),
-(471952718, 2, NULL, NULL, NULL, NULL, NULL, 0),
-(472059610, 2, NULL, NULL, NULL, NULL, NULL, 0),
-(472062799, 2, NULL, NULL, NULL, NULL, NULL, 0),
-(472077188, 2, NULL, NULL, NULL, NULL, NULL, 0),
-(472084492, 2, NULL, NULL, NULL, NULL, NULL, 0),
-(472086760, 2, NULL, NULL, NULL, NULL, NULL, 0),
-(472487169, 2, NULL, NULL, NULL, NULL, NULL, 0);
+INSERT INTO `booking` (`BookingID`, `CustomerID`, `RoomID`, `DateStart`, `DateFinish`, `OrderStatus`, `TotalAmount`) VALUES
+(1, 1, 1, '2021-03-01', '2021-03-23', 'yes', 1000),
+(2, 2, 3, '2021-03-03', '2021-03-23', 'yes', 2000),
+(3, 2, 2, '2021-03-22', '2021-03-26', '', 111),
+(4, 1, 1, '2021-01-01', '2021-02-01', '', 100),
+(5, 1, 1, '2021-03-23', '2021-03-25', '0', 11),
+(6, 2, 2, '2021-03-16', '2021-03-28', '0', 11);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `suggestion`
+-- Table structure for table `bookingitem`
 --
 
-CREATE TABLE `suggestion` (
-  `id` int(11) NOT NULL,
-  `student_id` bigint(11) NOT NULL,
-  `sggestion` varchar(1024) NOT NULL,
-  `queue_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+DROP TABLE IF EXISTS `bookingitem`;
+CREATE TABLE IF NOT EXISTS `bookingitem` (
+  `BookingItemID` int(4) NOT NULL AUTO_INCREMENT,
+  `RoomID` int(4) NOT NULL,
+  `Availability` varchar(10) NOT NULL,
+  `Number` int(2) NOT NULL,
+  PRIMARY KEY (`BookingItemID`),
+  KEY `Constraint3` (`RoomID`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 --
--- Indexes for dumped tables
+-- Dumping data for table `bookingitem`
 --
 
---
--- Indexes for table `class`
---
-ALTER TABLE `class`
-  ADD PRIMARY KEY (`id`);
+INSERT INTO `bookingitem` (`BookingItemID`, `RoomID`, `Availability`, `Number`) VALUES
+(1, 1, '1', 1),
+(2, 2, '2', 1),
+(3, 3, '3', 1),
+(4, 4, '4', 1),
+(5, 5, '5', 1);
+
+-- --------------------------------------------------------
 
 --
--- Indexes for table `logtable`
---
-ALTER TABLE `logtable`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `queue`
---
-ALTER TABLE `queue`
-  ADD PRIMARY KEY (`queue_ID`),
-  ADD KEY `student_NO` (`student_NO`);
-
---
--- Indexes for table `student`
---
-ALTER TABLE `student`
-  ADD PRIMARY KEY (`student_NO`),
-  ADD KEY `class_id` (`class_id`);
-
---
--- Indexes for table `suggestion`
---
-ALTER TABLE `suggestion`
-  ADD KEY `student_id` (`student_id`),
-  ADD KEY `queue_id` (`queue_id`);
-
---
--- AUTO_INCREMENT for dumped tables
+-- Table structure for table `customer`
 --
 
+DROP TABLE IF EXISTS `customer`;
+CREATE TABLE IF NOT EXISTS `customer` (
+  `CustomerID` int(11) NOT NULL AUTO_INCREMENT,
+  `Username` varchar(50) NOT NULL,
+  `Rol` enum('user','admin') NOT NULL DEFAULT 'user',
+  `Pass` varchar(50) NOT NULL,
+  `Email` varchar(50) NOT NULL,
+  `Phone` int(11) NOT NULL,
+  PRIMARY KEY (`CustomerID`)
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=latin1;
+
 --
--- AUTO_INCREMENT for table `class`
+-- Dumping data for table `customer`
 --
-ALTER TABLE `class`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+INSERT INTO `customer` (`CustomerID`, `Username`, `Rol`, `Pass`, `Email`, `Phone`) VALUES
+(1, 'customer1', 'user', 'customer1', 'customer1@gmail.com', 111111),
+(2, 'customer2', 'user', 'customer2', 'customer2@gmail.com', 111111),
+(3, 'customer3', 'user', 'customer3', 'customer3@gmail.com', 111111),
+(4, 'customer4', 'user', 'customer4', 'customer4@gmail.com', 111111),
+(5, 'customer5', 'user', 'customer5', 'customer5@gmail.com', 111111),
+(8, '0', 'admin', 'aaa', 'aa@gmail.com', 222222),
+(9, '0', 'admin', 'bbb', 'bb@gmail.com', 222222),
+(10, 'ccc', 'admin', 'ccc', 'cc@gmail.com', 222222),
+(11, 'qqq', 'admin', 'qqq', 'qq@gmail.com', 111),
+(12, 'www', 'admin', 'www', 'ww@gmail.com', 22222),
+(13, 'wei', 'admin', 'wei', 'ei@gmail.com', 123456),
+(14, 'customer', 'user', 'customer6', 'ustomer6@gmail.com', 121212),
+(15, 'customer7', 'user', 'customer7', 'customer7@gmail.com', 11111),
+(16, 'customer7', 'user', 'customer7', 'customer7@gmail.com', 11111),
+(17, 'admin', 'admin', 'admin', 'admin@gmail.com', 11111),
+(18, 'customer9', 'user', 'customer9', 'customer9@gmail.com', 999999),
+(19, 'customer10', 'user', 'customer10', 'customer10@gmail.com', 111),
+(20, 'customer11', 'user', 'customer11', 'customer11@gmail.com', 111111),
+(21, 'customer11', 'user', 'customer11', 'customer11@gmail.com', 111111);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `room`
+--
+
+DROP TABLE IF EXISTS `room`;
+CREATE TABLE IF NOT EXISTS `room` (
+  `id` int(4) NOT NULL AUTO_INCREMENT,
+  `RoomPic` varchar(50) NOT NULL,
+  `RoomDes` varchar(50) NOT NULL,
+  `RoomPrice` int(10) NOT NULL,
+  `RoomNumber` int(3) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `room`
+--
+
+INSERT INTO `room` (`id`, `RoomPic`, `RoomDes`, `RoomPrice`, `RoomNumber`) VALUES
+(1, 'images/picture1.jpg', 'Double-Size Room', 100, 3),
+(2, 'images/picture2.jpg', 'Single Size Room', 22, 2),
+(3, 'images/picture3.jpg', 'Family Room.', 3, 3),
+(4, 'picture4', 'description4', 44, 44),
+(5, 'picture5', 'description5', 5333, 5),
+(8, '2222', '1111', 1111, 1111);
 
 --
 -- Constraints for dumped tables
 --
 
 --
--- Constraints for table `queue`
+-- Constraints for table `bookingitem`
 --
-ALTER TABLE `queue`
-  ADD CONSTRAINT `queue_ibfk_1` FOREIGN KEY (`student_NO`) REFERENCES `student` (`student_NO`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Constraints for table `student`
---
-ALTER TABLE `student`
-  ADD CONSTRAINT `student_ibfk_1` FOREIGN KEY (`class_id`) REFERENCES `class` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Constraints for table `suggestion`
---
-ALTER TABLE `suggestion`
-  ADD CONSTRAINT `suggestion_ibfk_1` FOREIGN KEY (`student_id`) REFERENCES `student` (`student_NO`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `suggestion_ibfk_2` FOREIGN KEY (`queue_id`) REFERENCES `queue` (`queue_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE `bookingitem`
+  ADD CONSTRAINT `Constraint3` FOREIGN KEY (`RoomID`) REFERENCES `room` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
